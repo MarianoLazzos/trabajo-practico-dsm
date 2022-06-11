@@ -1,36 +1,40 @@
 import React from 'react';
-import { Text, View, Image, Linking, StyleSheet } from 'react-native';
-import Card from './Card';
-import CardSection from './CardSection';
-import Button from './Button';
+import {
+  Text,
+  View,
+  Image,
+  Linking,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { AntDesign } from '@expo/vector-icons';
 
 const PhotoDetail = ({ title, imageUrl }) => {
   return (
-    <Card style={{ padding: 0, overflow: 'hidden' }}>
-      <CardSection style={styles.title}>
+    <TouchableOpacity
+      onPress={() => Linking.openURL(imageUrl)}
+      style={{
+        padding: 0,
+        overflow: 'hidden',
+        margin: 2,
+        borderRadius: 15,
+        flex: 1,
+      }}>
+      <View style={styles.title}>
         <LinearGradient colors={['rgba(0,0,0,0.8)', 'transparent']}>
           <View style={styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle}>{title}</Text>
+            <Text numberOfLines={1} style={styles.headerTextStyle}>
+              {title}
+            </Text>
           </View>
         </LinearGradient>
-      </CardSection>
+      </View>
       <Image
         resizeMode="cover"
-        style={styles.imageStyle}
+        style={[styles.imageStyle]}
         source={{ uri: imageUrl }}
       />
-
-      <CardSection style={styles.button}>
-        <Button
-          secondary
-          onPress={() => Linking.openURL(imageUrl)}
-          style={{ paddingHorizontal: 18 }}>
-          <AntDesign name="arrowright" size={30} />
-        </Button>
-      </CardSection>
-    </Card>
+    </TouchableOpacity>
   );
 };
 
@@ -42,18 +46,11 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 0,
   },
-  button: {
-    flex: 1,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: null,
-    marginBottom: 3,
-  },
   headerContentStyle: {
     alignSelf: 'center',
     paddingBottom: 10,
     paddingTop: 3,
+    paddingHorizontal: 4,
   },
   headerTextStyle: {
     fontSize: 18,
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   imageStyle: {
-    height: 300,
+    height: 250,
     flex: 1,
   },
 });

@@ -1,29 +1,40 @@
 import React from 'react';
-import { Text, View, Image, Linking, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
-import Button from './Button';
-import { AntDesign } from '@expo/vector-icons';
 
-const AlbumDetail = ({ navigation, title, albumId }) => {
+const AlbumDetail = ({
+  navigation,
+  title,
+  albumId,
+  server,
+  primary,
+  secret,
+}) => {
   return (
-    <Card>
-      <CardSection style={styles.album}>
-        <View>
-          <Text style={{ fontSize: 20 }}>{title.toUpperCase()}</Text>
-        </View>
-      </CardSection>
-
-      <CardSection>
-        <Button
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('photoList', { albumId: albumId })
-          }>
-          <AntDesign name="arrowright" size={30} />
-        </Button>
-      </CardSection>
-    </Card>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('photoList', { albumId: albumId })}>
+      <Card>
+        <CardSection style={styles.album}>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: 20,
+              backgroundColor: 'black',
+              paddingHorizontal: 7,
+              color: 'white',
+            }}>
+            {title.toUpperCase()}
+          </Text>
+        </CardSection>
+        <Image
+          style={styles.image}
+          source={{
+            uri: `https://farm5.staticflickr.com/${server}/${primary}_${secret}.jpg`,
+          }}
+        />
+      </Card>
+    </TouchableOpacity>
   );
 };
 
@@ -32,10 +43,15 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: null,
+    zIndex: 1,
   },
 
-  button: {
-    paddingHorizontal: 19,
+  image: {
+    position: 'absolute',
+    zIndex: 0,
+    height: 90,
+    width: '100%',
   },
 });
 

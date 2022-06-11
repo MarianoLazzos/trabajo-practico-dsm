@@ -13,12 +13,11 @@ const Button = ({ onPress, children, style, secondary = false }) => {
 
     buttonStyle: {
       flex: 1,
-      backgroundColor: secondary ? '#007aff' : null,
+      backgroundColor: secondary ? 'rgba(0, 122, 255, 0.6)' : null,
       borderRadius: 40,
       borderWidth: 1,
       borderColor: '#007aff',
-      marginLeft: 5,
-      marginRight: 5,
+      margin: 5,
     },
   });
 
